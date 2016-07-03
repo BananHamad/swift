@@ -493,16 +493,7 @@ extension FloatingPoint {
   
   public static func _mulAddStickyRounding(_ x: Self, _ y: Self, _ z: Self) -> Self {
     fatalError("TODO: Unimplemented")
-  }
-  
-  public var floatingPointClass: FloatingPointClassification {
-    if isSignaling { return .signalingNaN }
-    if isNaN { return .quietNaN }
-    if isInfinite { return signbit ? .negativeInfinity : .positiveInfinity }
-    if isNormal { return signbit ? .negativeNormal : .positiveNormal }
-    if isSubnormal { return signbit ? .negativeSubnormal : .positiveSubnormal }
-    return signbit ? .negativeZero : .positiveZero
-  }
+  }  
   
   public func totalOrderMagnitude(_ other: Self) -> Bool {
     return abs(self).totalOrder(abs(other))
@@ -815,10 +806,6 @@ extension BinaryFloatingPoint {
   
   public var isNaN: Bool {
     return exponentBitPattern == Self._infinityExponent && !isInfinite
-  }
-  
-  public var isSignaling: Bool {
-    return isNaN && (significandBitPattern & Self._quietBitMask == 0)
   }
   
   public var isCanonical: Bool { return true }
